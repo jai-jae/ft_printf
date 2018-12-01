@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 18:40:58 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/01 12:49:22 by dolee            ###   ########.fr       */
+/*   Updated: 2018/12/01 19:27:34 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void		get_input(const char *fmt, t_pfinfo *input)
 {
 	input->i++;
 	get_flags(fmt, input);
-	//process_conv();
+	get_datatype(fmt, input);
 	//TODO don't know what to do T-T
 }
 
@@ -42,7 +42,7 @@ int				ft_printf(const char *fmt, ...)
 	while (fmt[input->i])
 	{
 		if (fmt[input->i] == '%' && fmt[input->i + 1] != '%')
-			process_input(fmt, &input);
+			get_input(fmt, &input);
 		else if (fmt[input->i] == '%' && fmt[input->i + 1] == '%')
 		{
 			input.ret += write(1, "%", 1);
