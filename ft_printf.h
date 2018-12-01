@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 18:42:52 by jaelee            #+#    #+#             */
-/*   Updated: 2018/11/30 23:07:42 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/01 12:49:20 by dolee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include "./libft/libft.h"
-# define HEX "xX";
-# define FLAGS "#0-+ *.123456789hlL";
-# define NBR "0123456789";
+# define HEX "xX"
+# define FLAGS "#0-+ *.123456789hlL"
+# define NBR "0123456789"
 
 typedef enum	e_mod
 {
@@ -72,7 +72,7 @@ char	*ulltoa(long long int n, unsigned long long int base);
 char	*ulltoa_base(long long int, unsigned long long int base);
 //TODO ftoa : structure of two ints - one for integer and one for decimal
 char	*ftoa(long double);
-char	*get_addr(unsigned long int n, unsigned long int base);
+char	*get_addr(unsigned long int n, unsigned long long int base);
 char	*ft_strchr(); //TODO may need it;
 //TODO getchar, getstr print_output + all different flags;
 #endif

@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 20:02:40 by jaelee            #+#    #+#             */
-/*   Updated: 2018/11/30 11:17:52 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/01 12:49:16 by dolee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_addr(unsigned long long int n, unsigned long long int base)
 	char					*addr;
 	int						len;
 	unsigned long long int	tmp;
-	
+
 	len = 1;
 	tmp = n;
 	while (tmp > base)
@@ -42,4 +42,4 @@ char	*get_addr(unsigned long long int n, unsigned long long int base)
 	addr[--len] = tmp % base > 9 ?
 		(tmp % base) + 87 : (tmp % base) + '0';
 	return (addr);
-}
+} //TODO 27 lines

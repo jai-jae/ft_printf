@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 18:40:58 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/01 12:06:14 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/01 12:49:22 by dolee            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static	void	init_flags(t_flags *flags)
 	flags->prec = -1;
 }
 
-static void	process_input(const char *fmt, t_pfinfo *input)
+static void		get_input(const char *fmt, t_pfinfo *input)
 {
 	input->i++;
 	get_flags(fmt, input);
@@ -32,7 +32,7 @@ static void	process_input(const char *fmt, t_pfinfo *input)
 	//TODO don't know what to do T-T
 }
 
-int	ft_printf(const char *fmt, ...)
+int				ft_printf(const char *fmt, ...)
 {
 	t_pfinfo	input;
 	
@@ -53,7 +53,7 @@ int	ft_printf(const char *fmt, ...)
 			input.ret += write(1, &fmt[input.i], 1);
 			input.i++;
 		}
-	}	
+	}
 	va_end(input.ap[0]);
 	return (input.ret);
 }
