@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 11:23:02 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/05 23:16:06 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/05 23:37:14 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@ void	process_precision_nbr(t_pfinfo *input)
 	int		len;
 
 	check_sign_nbr(input);
-	len = ft_strlen(input->output);
+	len = (int)ft_strlen(input->output);
 	if (input->flags.prec == 0 && input->output[0] == '0')
 		input->output[0] = '\0';
-	else if (input->flags.prec >= 0)
-		input->flags.zero = 0;
 	else if (input->flags.prec > len)
 	{
 		i = input->flags.prec - len;
@@ -59,6 +57,8 @@ void	process_precision_nbr(t_pfinfo *input)
 		free(input->output);
 		input->output = tmp;
 	}
+	if (input->flags.prec >= 0)
+		input->flags.zero = 0;
 }
 
 void	print_zerowidth_nbr(t_pfinfo *input)
@@ -68,13 +68,11 @@ void	print_zerowidth_nbr(t_pfinfo *input)
 
 	if (input->flags.plus == 1 || input->flags.space == 1 ||
 			input->flags.neg == 1)
-		len = ft_strlen(input->output) + 1;
+		len = (int)ft_strlen(input->output) + 1;
 	else
-		len = ft_strlen(input->output);
-	printf("len = %d\n", len);
-	i = input->flags.width - ((input->flags.prec > ft_strlen(input->output) ?
+		len = (int)ft_strlen(input->output);
+	i = input->flags.width - ((input->flags.prec > (int)ft_strlen(input->output) ?
 				input->flags.prec : 0) + len);
-	printf("i = %d\n", i);
 	while (i > 0)
 	{
 		if (input->flags.zero == 1)
