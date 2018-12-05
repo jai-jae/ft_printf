@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_strlower.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/05 16:19:21 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/05 16:30:30 by jaelee           ###   ########.fr       */
+/*   Created: 2018/12/05 21:29:01 by jaelee            #+#    #+#             */
+/*   Updated: 2018/12/05 21:43:53 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa(int n)
+void	ft_strlower(char *str)
 {
-	char		*val;
-	int			len;
-	long int	tmp;
+	int i;
 
-	len = n < 0 ? 2 : 1;
-	tmp = n < 0 ? -(long int)n : n;
-	while (tmp > 10)
+	i = 0;
+	while (str[i] != '\0')
 	{
-		tmp /= 10;
-		len++;
+		if (str[i] >= 'A' && str[i] <= 'Z')
+			str[i] += 32;
+		i++;
 	}
-	if (!(val = ft_strnew(len)))
-		return (NULL);
-	val[len] = '\0';
-	val[0] = n < 0 ? '-' : 0;
-	tmp = n < 0 ? -(long int)n : n;
-	while (tmp >= 10)
-	{
-		val[--len] = (tmp % 10) + '0';
-		tmp /= 10;
-	}
-	val[--len] = (tmp % 10) + '0';
-	return (val);
 }

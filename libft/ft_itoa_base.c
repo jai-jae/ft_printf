@@ -1,61 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ulltoa_duo.c                                       :+:      :+:    :+:   */
+/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/01 23:02:33 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/05 17:19:32 by jaelee           ###   ########.fr       */
+/*   Created: 2018/12/05 16:21:36 by jaelee            #+#    #+#             */
+/*   Updated: 2018/12/05 16:31:27 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
-#include "ft_printf.h"
+#include "libft.h"
 
-char	*ulltoa(unsigned long long int n)
+char	*ft_itoa_base(int n, long int base)
 {
-	char					*val;
-	int						len;
-	unsigned long long int	tmp;
+	char		*val;
+	int			len;
+	long int	tmp;
 
-	len = 1;
-	tmp = n;
-	while (tmp > 10)
-	{
-		tmp /= 10;
-		len++;
-	}
-	if (!(val = ft_memalloc(len + 1)))
-		return (NULL);
-	val[len] = '\0';
-	tmp = n;
-	while (tmp >= 10)
-	{
-		val[--len] = (tmp % 10) + '0';
-		tmp /= 10;
-	}
-	val[--len] = (tmp % 10) + '0';
-	return (val);
-}
-
-char	*ulltoa_base(unsigned long long int n, unsigned long long int base)
-{
-	char					*val;
-	int						len;
-	unsigned long long int	tmp;
-
-	len = 1;
-	tmp = n;
+	len = n < 0 ? 2 : 1;
+	tmp = n < 0 ? -(long int)n : n;
 	while (tmp > base)
 	{
 		tmp /= base;
 		len++;
 	}
-	if (!(val = ft_memalloc(len + 1)))
+	if (!(val = ft_strnew(len)))
 		return (NULL);
 	val[len] = '\0';
-	tmp = n;
+	val[0] = n < 0 ? '-' : 0;
+	tmp = n < 0 ? -(long int)n : n;
 	while (tmp >= base)
 	{
 		val[--len] = (tmp % base) > 9 ?

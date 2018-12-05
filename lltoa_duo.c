@@ -6,14 +6,14 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 22:30:20 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/01 23:07:03 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/05 17:16:34 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./libft/libft.h"
 #include "ft_printf.h"
 
-char	*lltoa(long long int n, long long int base)
+char	*lltoa(long long int n)
 {
 	char			*val;
 	int				len;
@@ -21,9 +21,9 @@ char	*lltoa(long long int n, long long int base)
 
 	len = n < 0 ? 2 : 1;
 	tmp = n < 0 ? -n : n;
-	while (tmp > base)
+	while (tmp > 10)
 	{
-		tmp /= base;
+		tmp /= 10;
 		len++;
 	}
 	if (!(val = ft_memalloc(len + 1)))
@@ -31,12 +31,12 @@ char	*lltoa(long long int n, long long int base)
 	val[len] = '\0';
 	val[0] = n < 0 ? '-' : 0;
 	tmp = n < 0 ? -n : n;
-	while (tmp >= base)
+	while (tmp >= 10)
 	{
-		val[--len] = (tmp % base) + '0';
-		tmp /= ft_strlen(base);
+		val[--len] = (tmp % 10) + '0';
+		tmp /= 10;
 	}
-	val[--len] = (tmp % base) + '0';
+	val[--len] = (tmp % 10) + '0';
 	return (val);
 }
 

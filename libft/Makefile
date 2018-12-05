@@ -8,7 +8,6 @@ SRC =	./ft_atoi.c \
 		./ft_islower.c \
 		./ft_isprint.c \
 		./ft_isupper.c \
-		./ft_itoa.c \
 		./ft_lstadd.c \
 		./ft_lstdel.c \
 		./ft_lstdelone.c \
@@ -68,6 +67,11 @@ SRC =	./ft_atoi.c \
 		./ft_strndup.c \
 		./ft_min.c \
 		./ft_max.c \
+		./ft_itoa.c \
+		./ft_itoa_base.c \
+		./ft_uitoa.c \
+		./ft_uitoa_base.c \
+		./ft_strlower.c \
 		./get_next_line.c
 FLAG = -Wall -Wextra -Werror
 OBJ = $(SRC:.c=.o)
@@ -85,7 +89,9 @@ $(NAME): $(OBJ)
 clean:
 	rm -f $(OBJ)
 
-fclean: clean
+fclean: clean libclean
+
+libclean :
 	rm -f $(NAME)
 
 re: fclean all

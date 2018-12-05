@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 17:50:53 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/01 20:32:29 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/05 23:06:55 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	init_flags(t_flags *flags)
 	flags->space = 0;
 	flags->width = 0;
 	flags->prec = -1;
+	flags->neg = 0;
 }
 
 void	get_precision(const char *fmt, t_pfinfo *input)
@@ -35,7 +36,7 @@ void	get_precision(const char *fmt, t_pfinfo *input)
 		input->flags.prec = va_arg(input->ap, int); //TODO need check
 		input->i += 2;
 	}
-	else if (fmt[input->i] == '.' && fmt[input->i + 1] >= '1'
+	else if (fmt[input->i] == '.' && fmt[input->i + 1] >= '0'
 			&& fmt[input->i + 1] <= '9')
 	{
 		input->i++;
@@ -87,7 +88,7 @@ void	get_flags(const char *fmt, t_pfinfo *input)
 		else if (fmt[input->i] >= '1' && fmt[input->i] <= '9')
 		{
 			input->flags.width = ft_atoi(fmt + input->i);
-			while (fmt[input->i] >= '1' && fmt[input->i] <= '9')
+			while (fmt[input->i] >= '0' && fmt[input->i] <= '9')
 				input->i++;
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:07:06 by jaelee            #+#    #+#             */
-/*   Updated: 2018/11/25 19:17:34 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/05 21:43:45 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,10 @@ char			*ft_strndup(const char *s1, size_t n);
 int				ft_min(int a, int b);
 int				ft_max(int a, int b);
 int				get_next_line(const int fd, char **line);
+char			*ft_itoa(int n);
+char			*ft_itoa_base(int n, long int base);
+char			*ft_uitoa(unsigned int n);
+char			*ft_uitoa_base(unsigned int n, unsigned int base);
+void			ft_strlower(char *str);
 
 #endif

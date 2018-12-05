@@ -6,14 +6,14 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 22:58:11 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/01 23:01:38 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/05 16:25:57 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./libft/libft.h"
 #include "ft_printf.h"
 
-char	*ultoa(unsigned long int n, unsigned long int base)
+char	*ultoa(unsigned long int n)
 {
 	char				*val;
 	int					len;
@@ -21,23 +21,24 @@ char	*ultoa(unsigned long int n, unsigned long int base)
 
 	len = 1;
 	tmp = n;
-	while (tmp > base)
+	while (tmp > 10)
 	{
-		tmp /= base;
+		tmp /= 10;
 		len++;
 	}
-	if (!(val = ft_memalloc(len + 1)))
+	if (!(val = ft_strnew(len)))
 		return (NULL);
 	val[len] = '\0';
 	tmp = n;
-	while (tmp >= base)
+	while (tmp >= 10)
 	{
-		val[--len] = (tmp % base) + '0';
-		tmp /= ft_strlen(base);
+		val[--len] = (tmp % 10) + '0';
+		tmp /= 10;
 	}
-	val[--len] = (tmp % base) + '0';
+	val[--len] = (tmp % 10) + '0';
 	return (val);
 }
+
 char	*ultoa_base(unsigned long int n, unsigned long int base)
 {
 	char				*val;
@@ -51,7 +52,7 @@ char	*ultoa_base(unsigned long int n, unsigned long int base)
 		tmp /= base;
 		len++;
 	}
-	if (!(val = ft_memalloc(len + 1)))
+	if (!(val = ft_strnew(len)))
 		return (NULL);
 	val[len] = '\0';
 	tmp = n;
