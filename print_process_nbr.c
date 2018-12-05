@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 11:23:02 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/05 23:06:56 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/05 23:16:06 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,15 @@ void	print_zerowidth_nbr(t_pfinfo *input)
 	int len;
 	int i;
 
-	if (input->flags.plus == 1 || input->flags.space == 1 || input->flags.neg == 1)
+	if (input->flags.plus == 1 || input->flags.space == 1 ||
+			input->flags.neg == 1)
 		len = ft_strlen(input->output) + 1;
 	else
-		len = ft_strlen(input->output);	
-	i = input->flags.width - (ft_max(input->flags.prec, 0) + len);
+		len = ft_strlen(input->output);
+	printf("len = %d\n", len);
+	i = input->flags.width - ((input->flags.prec > ft_strlen(input->output) ?
+				input->flags.prec : 0) + len);
+	printf("i = %d\n", i);
 	while (i > 0)
 	{
 		if (input->flags.zero == 1)
