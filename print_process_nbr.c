@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 11:23:02 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/05 23:37:14 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/06 11:45:32 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,12 @@ void	print_zerowidth_nbr(t_pfinfo *input)
 	i = input->flags.width - ((input->flags.prec > (int)ft_strlen(input->output) ?
 				input->flags.prec : 0) + len);
 	while (i > 0)
-	{
+	{	
 		if (input->flags.zero == 1)
-		{
 			input->ret += write(1, "0", 1);
-			i--;
-		}
 		else
-		{
 			input->ret += write(1, " ", 1);
-			i--;
-		}
+		i--;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 15:50:17 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/05 21:44:13 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/06 12:01:32 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	get_base(char type, t_pfinfo *input)
 		get_hexa(input, val);
 	if (type == 'x')
 		ft_strlower(input->output);
-	print_base(input);
+	print_base(type, input);
 }
 
 void	get_int(char type, t_pfinfo *input)

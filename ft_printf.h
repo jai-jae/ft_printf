@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 18:42:52 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/05 21:35:53 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/06 11:41:10 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,15 @@ void	get_hexa(t_pfinfo *input, unsigned long int val);
 
 //print_process_nbr.c - process min-wdith and precision and print decimal numeric information//
 void	print_nbr(t_pfinfo *input);
-void	print_base(t_pfinfo *input);
 void	process_precision_nbr(t_pfinfo *input);
 void	check_sign_nbr(t_pfinfo *input);
-void	print_zerowidth(t_pfinfo *input);
+void	print_zerowidth_nbr(t_pfinfo *input);
 void	print_sign_nbr(t_pfinfo *input);
+//print_process_base.c
+void	print_base(char type, t_pfinfo *input);
+void	print_hash_base(char type, t_pfinfo *input);
+void	process_precision_base(char type, t_pfinfo *input);
+void	print_zerowidth_base(char type, t_pfinfo *input);
 
 //init_args.c - load arguments
 void	init_int_arg(t_pfinfo *input, long int *val);
