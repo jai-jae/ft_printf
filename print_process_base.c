@@ -6,28 +6,29 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 11:23:02 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/06 14:08:56 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/08 17:12:33 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void    print_hash_base(char type, t_pfinfo *input)
+void	print_hash_base(char type, t_pfinfo *input)
 {
-	char    *tmp;
+	char	*tmp;
 	char	*hash;
+
 	if (type == 'o')
 		input->ret += write(1, "0", 1);
 	else if (type == 'x' || type == 'X')
 		input->ret += write(1, type == 'x' ? "0x" : "0X", 2);
 }
 
-void    process_precision_base(char type, t_pfinfo *input)
+void	process_precision_base(char type, t_pfinfo *input)
 {
-	char    *zeros;
-	char    *tmp;
-	int     i;
-	int     len;
+	char	*zeros;
+	char	*tmp;
+	int		i;
+	int		len;
 
 	len = (int)ft_strlen(input->output);
 	if (input->flags.prec == 0 && input->output[0] == '0')
@@ -58,8 +59,8 @@ void	print_zerowidth_base(char type, t_pfinfo *input)
 		len = (int)ft_strlen(input->output) + 2;
 	else
 		len = (int)ft_strlen(input->output);
-	i = input->flags.width - ((input->flags.prec > (int)ft_strlen(input->output) ?
-				input->flags.prec : 0) + len);
+	i = input->flags.width - ((input->flags.prec > (int)ft_strlen(input->output)
+				? input->flags.prec : 0) + len);
 	while (i > 0)
 	{
 		if (input->flags.zero == 1)

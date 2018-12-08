@@ -1,0 +1,44 @@
+1 bit = sign 
+11 bits = exponents in bias (actual exponent + 1023) : e
+52 bits = mantissa : m
+the mantissa is normalized and the normalizing factor goes to exponent field
+
+bit[number of 1,0s required] (max exponent = 1024, min exponent = -1023)
+when e >= 0	- bit[0] = 1, bit[1] = mantissa at 1, ....., bit[52] = mantissa at 52
+			- if exponent goes over 52 make more spaces for bit-array of 0s;
+			- the decimal part starts at bit[e + 1]
+			- if e >= 31 && there is more than bit[1 ~ 31] == 1 then it's big int
+			- max 0 11111111111 1111111111111111111111111111111111111111111111111111
+when e < 0	- bit[0] = 0 .. bit[-e - 1] = 1, bit[-e + 0] = mantissa 1 ... bit[-e + 51]
+			- bit[0] can be bit[-e - 1] 0. << this part is before bit[0]
+			- strrchr(bit, '1') to find the index of  last 1;
+			- strchr(bit, '1') to find the index of first 1;
+
+------------calculation decimal------------
+- if bit[index] == 1 then process nbr by	
+	index = first 1 index;
+	nbr = init_bigint;
+	bigint5 = init_bigint;
+	bigint10 = init_bigint;
+	while (index < last_index)
+	{
+		if (bit[index] == 1)
+			nbr += ft_mul5(bigint, index) * ft_mul10(bigint, index, last_index);
+			//formula : 5^(index+1) * 10^(last_index-index)//
+		index++;
+	}
+
+----------calculation integer---------
+nbr = init_bigint;
+nbr->data[0] = 0 ~ 31 bits;
+nbr->data[1] = 32 ~ 63 bits;
+nbr->data[2] = 64 ~ 95 bits;
+nbr->data[3] = 95 ~ 127 bits;
+nbr->data[32] = 992 ~ 1023 bits;
+and then print them;
+
+-------------what needs implementation--------
+treat bigint as binary number
+bigint-smallint bigint-bigint  addition
+bigint-smallint bigint-bigint multiplication
+double-dabble algorithm to print into decimal digits

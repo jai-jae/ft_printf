@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 18:42:52 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/06 11:41:10 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/08 17:19:20 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	get_datatype(const char *fmt, t_pfinfo *input);
 char	*ltoa(long int n);
 char	*ltoa_base(long int n, long int base);
 
-char	*lltoa(long long int);
-char	*lltoa_base(long long int, long long int base);
+char	*lltoa(long long int n);
+char	*lltoa_base(long long int n, long long int base);
 
 char	*ultoa(unsigned long int n);
 char	*ultoa_base(unsigned long int n, unsigned long int base);
@@ -70,7 +70,7 @@ char	*ulltoa(unsigned long long int n);
 char	*ulltoa_base(unsigned long long int n, unsigned long long int base);
 
 //float_manipulation.c - float printing part (include precision processing)
-char	*ftoa(long double);
+char	*ftoa(long double d);
 
 //get_flags.c - get additional flags before datatypes
 void	get_prec(const char *fmt, t_pfinfo *input);
@@ -93,7 +93,8 @@ void	get_binary(t_pfinfo *input, unsigned long int val);
 void	get_octal(t_pfinfo *input, unsigned long int val);
 void	get_hexa(t_pfinfo *input, unsigned long int val);
 
-//print_process_nbr.c - process min-wdith and precision and print decimal numeric information//
+//print_process_nbr.c - process min-wdith and precision and print decimal
+//numeric information//
 void	print_nbr(t_pfinfo *input);
 void	process_precision_nbr(t_pfinfo *input);
 void	check_sign_nbr(t_pfinfo *input);

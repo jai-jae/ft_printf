@@ -6,69 +6,35 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/06 14:57:02 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/07 12:11:24 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/08 18:16:21 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "bigint.h"
 
-typedef struct	s_bigint
-{
-	size_t	len;
-	size_t	*nbr;
-}					t_bigint;
-
-size_t	ft_create_bigint(size_t len, t_bigint bg)
+uint32_t	ft_create_bigint(uint32_t len, t_bigint *bg)
 {
 	bg->len = len;
-	if (!(bg->nbr = (size_t *)malloc(len * sizeof(size_t))))
+	if (!(bg->data = (uint32_t *)malloc(sizeof(uint32_t) * len)))
 		return (0);
+	ft_memset(bg->data, 0, sizeof(uint32_t) * (bg->len));
 	return (len);
 }
 
-void	ft_del_bigint(t_bigint bg)
+void		ft_del_bigint(t_bigint *bg)
 {
 	bg->len = 0;
-	free(bg->nbr);
+	free(bg->data);
 }
 
-void	ft_intval_bigint(t_bigint *dst, size_t src)
+void		ft_initsmall_bigint(t_bigint *dst, uint32_t val)
 {
-	dst->nbr[0] = src;
-	ft_memset(&dst->nbr[1], 0, sizeof(size_t) * (dst->len - 1));
+	dst->data[0] = val;
+	ft_memset(&dst->data[1], 0, sizeof(uint32_t) * (dst->len - 1));
 }
 
-void	ft_bigval_bigint(t_bigint *dst, t_bigint *src);
+void		ft_bigval_bigint(t_bigint *dst, t_bigint *src)
 {
-	ft_memcpy(dst->nbr, src->nbr, (dst->len > src->len ?
-				src->len : dst->len) * sizeof(size_t));
-}
-
-void	ft_add_bigint(size_t len, t_bigint *dst, t_bigint *src)
-{
-	size_t carry;
-	size_t i;
-	
-	i = 0;
-	carry = 0;
-	while (i < len)
-	{
-		dst[i] = dst[i] + src[i];
-		if (carry == 1)
-		{
-			if (dst[i] >= src[i]) // 자리수 유지
-				carry = 0;
-			if (dst[i] == UINT_MAX) //자리수 
-				carry = 1;
-			dst[i]++;
-		}
-		else
-		{
-			if (dst[i] < src[i]) //only happens when additional digit required
-				carry = 1;
-		}
-		i++;
-	}
-	return (carry);
+	ft_memcpy(dst->data, src->data, (dst->len > src->len ?
+				src->len : dst->len) * sizeof(uint32_t));
 }

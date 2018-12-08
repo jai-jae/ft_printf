@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 15:50:17 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/06 12:01:32 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/08 17:16:20 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	get_base(char type, t_pfinfo *input)
 	if (type == 'b')
 		get_binary(input, val);
 	else if (type == 'o')
-	get_octal(input, val);
+		get_octal(input, val);
 	else if (type == 'X' || type == 'x')
 		get_hexa(input, val);
 	if (type == 'x')
@@ -55,6 +55,7 @@ void	get_int(char type, t_pfinfo *input)
 void	get_uint(char type, t_pfinfo *input)
 {
 	unsigned long int val;
+
 	init_uint_arg(input, &val);
 	input->flags.minus == 1 ? input->flags.zero = 0 : 0;
 	input->flags.space = 0;
@@ -71,16 +72,7 @@ void	get_uint(char type, t_pfinfo *input)
 		input->output = ulltoa((long long int)val);
 	print_nbr(input);
 }
-/*
-void	get_float(char type, t_pfinfo *input)
-{
-	long double val;
 
-	val = init_float_arg(input, &val);
-	input->flags.minus == 1 ? input->flags.zero = 0 : 0;
-	process_float(input, val);
-}	
-*/
 void	get_datatype(const char *fmt, t_pfinfo *input)
 {
 	if (ft_strchr(BASE, fmt[input->i]))

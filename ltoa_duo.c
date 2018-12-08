@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 20:03:56 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/04 19:02:52 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/08 17:18:03 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 char		*ltoa(long int n)
 {
-	char			*val;
-	int				len;
-	long int		tmp;
+	char		*val;
+	int			len;
+	long int	tmp;
 
 	len = n < 0 ? 2 : 1;
 	tmp = n < 0 ? -n : n;
@@ -39,10 +39,11 @@ char		*ltoa(long int n)
 	val[--len] = (tmp % 10) + '0';
 	return (val);
 }
+
 char		*ltoa_base(long int n, long int base)
 {
-	char			*val;
-	int				len;
+	char		*val;
+	int			len;
 	long int	tmp;
 
 	len = n < 0 ? 2 : 1;
