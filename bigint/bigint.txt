@@ -7,7 +7,6 @@ bit[number of 1,0s required] (max exponent = 1024, min exponent = -1023)
 when e >= 0	- bit[0] = 1, bit[1] = mantissa at 1, ....., bit[52] = mantissa at 52
 			- if exponent goes over 52 make more spaces for bit-array of 0s;
 			- the decimal part starts at bit[e + 1]
-			- if e >= 31 && there is more than bit[1 ~ 31] == 1 then it's big int
 			- max 0 11111111111 1111111111111111111111111111111111111111111111111111
 when e < 0	- bit[0] = 0 .. bit[-e - 1] = 1, bit[-e + 0] = mantissa 1 ... bit[-e + 51]
 			- bit[0] can be bit[-e - 1] 0. << this part is before bit[0]

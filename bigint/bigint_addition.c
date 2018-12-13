@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 17:21:56 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/08 18:16:23 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/12 13:05:06 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,6 @@ void				ft_add_bigint(t_bigint *dst, t_bigint *src)
 void				ft_add_small_pos(t_bigint *dst, uint32_t val, uint32_t pos)
 {
 	if (dst->len <= pos)
-	{
-		ft_putstr("position is equal or larger than length of int array\n");
 		return ;
-	}
 	add_small(dst->len - pos, &dst->data[pos], val);
 }
