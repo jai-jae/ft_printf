@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 18:36:47 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/14 00:10:54 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/14 15:23:54 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -25,7 +25,7 @@ void		process_bigint(t_fprec *nbr)
 	int			tmp_exp;
 
 	tmp_exp = nbr->exp;
-	ft_create_bigint(7 + ft_abs(nbr->exp), &(nbr->bg));
+	ft_create_bigint(7 + ft_abs(tmp_exp), &(nbr->bg));
 	nbr->bg.data[0] = (uint32_t)(nbr->mantissa);
 	nbr->bg.data[1] = (uint32_t)((nbr->mantissa) >> 32);
 	while (!(nbr->bg.data[0] & 1))
@@ -40,9 +40,9 @@ void		init_mantissa64(double d, t_fprec *nbr)
 
 	nbr->len_sosu = 52;
 	utemp = *(uint64_t *)&d;
-	nbr->mantissa |= (utemp & 0x0000fffffffffffff);
+	nbr->mantissa = (utemp & 0x0000fffffffffffff);
 	nbr->mantissa |= 0x00010000000000000;
-	tmp_exp |= (utemp & 0x07ff0000000000000);
+	tmp_exp = (utemp & 0x07ff0000000000000);
 	tmp_exp = tmp_exp >> 52;
 	nbr->exp = (int)tmp_exp - 1023;
 	nbr->sign = (utemp >> 63) & 1;
@@ -56,8 +56,8 @@ void		init_mantissa64(double d, t_fprec *nbr)
 
 int         ft_ftoa64(double d)
 {
-	t_fprec			nbr;
-//	uint64_t		utemp;
+		t_fprec			nbr;
+	//	uint64_t		utemp;
 //	uint64_t		tmp_exp;
 //	uint64_t		tmp_mantissa;
 	int 			diff_exp_sosu;
@@ -95,15 +95,22 @@ int         ft_ftoa64(double d)
 		diff_exp_sosu--;
 	}
 	//TODO  print_bigint(&nbr);
+	printf("exp : %d\n", nbr.exp);
+	printf("sosu: %d\n", nbr.len_sosu);
 	printf("data[0] : %u\n", nbr.bg.data[0]);
 	printf("data[1] : %u\n", nbr.bg.data[1]);
+	printf("data[2] : %u\n", nbr.bg.data[2]);
+	printf("data[3] : %u\n", nbr.bg.data[3]);
+	printf("data[4] : %u\n", nbr.bg.data[4]);
+	printf("data[5] : %u\n", nbr.bg.data[5]);
+	printf("data[6] : %u\n", nbr.bg.data[6]);
 	return (1);
 }
 
 int main()
 {
 	int a;
-	double b = 110.0625 ;
+	double b = 441406250.25;
 	a = ft_ftoa64(b);
 	return (0);
 }
