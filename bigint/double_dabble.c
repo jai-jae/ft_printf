@@ -6,14 +6,14 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 13:04:06 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/16 17:14:25 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/16 17:22:08 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bigint.h"
 #include <stdio.h>
 
-int		first_index_bigint(t_fprec *nbr)
+static int		first_index_bigint(t_fprec *nbr)
 {
 	int	i;
 
@@ -27,11 +27,11 @@ int		first_index_bigint(t_fprec *nbr)
 	return (0);
 }
 
-int		size_checker(t_fprec *nbr, int src_size)
+static int		size_checker(t_fprec *nbr, int src_size)
 {
 	int			ret;
 	uint32_t	val;
-	
+
 	ret = 0;
 	val = nbr->bg.data[src_size];
 	while (val != 0)
@@ -41,8 +41,8 @@ int		size_checker(t_fprec *nbr, int src_size)
 	}
 	return (ret);
 }
-	
-void	shift_bcd(unsigned char *bcd, int index_bcd)
+
+static void		shift_bcd(unsigned char *bcd, int index_bcd)
 {
 	int	i;
 
@@ -59,7 +59,7 @@ void	shift_bcd(unsigned char *bcd, int index_bcd)
 	}
 }
 
-static void	check_next_digit(unsigned char *bcd, int *shift_pos, int b_size)
+static void		check_carry(unsigned char *bcd, int *shift_pos, int b_size)
 {
 	int tmp_pos;
 
@@ -75,10 +75,10 @@ static void	check_next_digit(unsigned char *bcd, int *shift_pos, int b_size)
 	}
 }
 
-void	double_dabble(t_fprec *nbr)
+void			double_dabble(t_fprec *nbr)
 {
-	int         		src_size;
-	unsigned char       bcd[BCD_SIZE];
+	int					src_size;
+	unsigned char		bcd[BCD_SIZE];
 	uint32_t			cmp;
 	int					b_size;
 	int					shift_pos;
@@ -95,7 +95,7 @@ void	double_dabble(t_fprec *nbr)
 		{
 			b_size--;
 			bcd[BCD_SIZE - 1] += (!!(cmp & nbr->bg.data[src_size]));
-			check_next_digit(bcd, &shift_pos, b_size);
+			check_carry(bcd, &shift_pos, b_size);
 			cmp = cmp >> 1;
 			if (b_size > 0)
 				shift_bcd(bcd, shift_pos);
