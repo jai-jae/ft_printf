@@ -6,9 +6,10 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 18:36:47 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/14 15:23:54 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/16 17:13:16 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <stdio.h>
 #include "bigint.h"
 
@@ -18,6 +19,22 @@ void		init_fprec(t_fprec *nbr)
 	nbr->sign = 0;
 	nbr->exp = 0;
 	nbr->len_sosu = 0;
+	ft_memset(nbr->bcd, 0, BCD_SIZE);
+}
+
+void		print_signed_zero(t_fprec *nbr)
+{
+	ft_putstr("signed zero");
+}
+
+void		print_inf()
+{
+	ft_putstr("inf\n");
+}
+
+void		print_nan()
+{
+	ft_putstr("nan\n");
 }
 
 void		process_bigint(t_fprec *nbr)
@@ -25,19 +42,46 @@ void		process_bigint(t_fprec *nbr)
 	int			tmp_exp;
 
 	tmp_exp = nbr->exp;
-	ft_create_bigint(7 + ft_abs(tmp_exp), &(nbr->bg));
+	ft_create_bigint(90, &(nbr->bg)); //TODO FREEEEEEEE!!!!!
 	nbr->bg.data[0] = (uint32_t)(nbr->mantissa);
 	nbr->bg.data[1] = (uint32_t)((nbr->mantissa) >> 32);
 	while (!(nbr->bg.data[0] & 1))
 		ft_shiftr_bigint(&nbr->bg, 1);
 }
 
-void		init_mantissa64(double d, t_fprec *nbr)
+int		handle_strange(t_fprec *nbr)
+{
+	if (nbr->exp == -1023 && nbr->len_sosu == 0)
+	{
+		print_signed_zero(nbr);
+		return (0);
+	}
+	else if (nbr->exp == -1023 && nbr->len_sosu != 0)
+	{
+		nbr->mantissa &= 0x0000fffffffffffff;
+		return (1);
+	}
+	else if (nbr->exp == 1024 && nbr->len_sosu == 0)
+	{
+		print_inf();
+		return (0);
+	}
+	else if (nbr->exp == 1024 && nbr->len_sosu != 0)
+	{
+		print_nan();
+		return (0);
+	}
+	return (-1);
+}
+
+int		init_mantissa64(double d, t_fprec *nbr)
 {
 	uint64_t	utemp;
 	uint64_t	tmp_exp;
 	uint64_t	tmp_mantissa;
+	int			ret;
 
+	ret = 1;
 	nbr->len_sosu = 52;
 	utemp = *(uint64_t *)&d;
 	nbr->mantissa = (utemp & 0x0000fffffffffffff);
@@ -52,65 +96,51 @@ void		init_mantissa64(double d, t_fprec *nbr)
 		nbr->len_sosu--;
 		tmp_mantissa = tmp_mantissa >> 1;
 	}
+	if (nbr->exp == -1023 || nbr->exp == 1024)
+		ret = handle_strange(nbr);
+	return (ret);
 }
 
-int         ft_ftoa64(double d)
+int         ft_ftoa(double d)
 {
-		t_fprec			nbr;
-	//	uint64_t		utemp;
-//	uint64_t		tmp_exp;
-//	uint64_t		tmp_mantissa;
-	int 			diff_exp_sosu;
+	t_fprec			nbr;
+	int				diff_exp_sosu;
 	int				diff_sosu_exp;
+	int				strange;
 
 	init_fprec(&nbr);
-/*	nbr.len_sosu = 52;
-	utemp = *(uint64_t *)&d; //TODO 80bit needs to increment pointer
-	nbr.mantissa |= (utemp & 0x0000fffffffffffff);
-	nbr.mantissa |= 0x00010000000000000; //include implicit 1
-	tmp_mantissa = nbr.mantissa;
-	tmp_exp |= (utemp & 0x07ff0000000000000);
-	tmp_exp = tmp_exp >> 52;
-	while (!(tmp_mantissa & 1))
+	strange = init_mantissa64(d, &nbr);
+	if (strange == 1)
 	{
-		nbr.len_sosu--;
-		tmp_mantissa = tmp_mantissa >> 1;
+		process_bigint(&nbr);
+		diff_sosu_exp = nbr.len_sosu - nbr.exp;
+		diff_exp_sosu = nbr.exp - nbr.len_sosu;
+		while (diff_sosu_exp > 0)
+		{
+			ft_mul_small(&(nbr.bg), 5);
+			diff_sosu_exp--;
+		}
+		while (diff_exp_sosu > 0)
+		{
+			ft_shiftl_bigint(&(nbr.bg), 1);
+			diff_exp_sosu--;
+		}
+		if (nbr.exp == -1023)
+			ft_shiftl_bigint(&(nbr.bg), 1);
+		printf("exp : %d\n", nbr.exp);
+		printf("sosu: %d\n", nbr.len_sosu);
+		for (int j=0; j < 3; j++)
+			printf("data[%d] : %u\n", j, nbr.bg.data[j]);
+		double_dabble(&nbr);
 	}
-	nbr.exp = (int)tmp_exp - 1023;
-	nbr.sign |= (utemp >> 63) & 1; */
-	init_mantissa64(d, &nbr);
-	process_bigint(&nbr);
-
-
-	diff_exp_sosu = nbr.exp - nbr.len_sosu;
-	diff_sosu_exp = nbr.len_sosu - nbr.exp;
-	while (diff_sosu_exp > 0)
-	{
-		ft_mul_small(&(nbr.bg), 5);
-		diff_sosu_exp--;
-	}
-	while (diff_exp_sosu > 0)
-	{
-		ft_shiftl_bigint(&(nbr.bg), 1);
-		diff_exp_sosu--;
-	}
-	//TODO  print_bigint(&nbr);
-	printf("exp : %d\n", nbr.exp);
-	printf("sosu: %d\n", nbr.len_sosu);
-	printf("data[0] : %u\n", nbr.bg.data[0]);
-	printf("data[1] : %u\n", nbr.bg.data[1]);
-	printf("data[2] : %u\n", nbr.bg.data[2]);
-	printf("data[3] : %u\n", nbr.bg.data[3]);
-	printf("data[4] : %u\n", nbr.bg.data[4]);
-	printf("data[5] : %u\n", nbr.bg.data[5]);
-	printf("data[6] : %u\n", nbr.bg.data[6]);
 	return (1);
 }
 
 int main()
 {
 	int a;
-	double b = 441406250.25;
-	a = ft_ftoa64(b);
+	double b;
+	b = 1.0e-323;
+	a = ft_ftoa(b);
 	return (0);
 }
