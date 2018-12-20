@@ -1,43 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_conv2.c                                    :+:      :+:    :+:   */
+/*   print_process_char.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/20 12:24:31 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/20 18:30:07 by jaelee           ###   ########.fr       */
+/*   Created: 2018/12/20 18:03:05 by jaelee            #+#    #+#             */
+/*   Updated: 2018/12/20 18:27:42 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
-#include <stdio.h>
 
-void	get_addr(t_pfinfo *input)
+void	print_zerowidth_char(t_pfinfo *input)
 {
-	unsigned long int val;
-
-	val = va_arg(input->ap, unsigned long int);
-	input->output = ultoa_base(val, 16);
-	if (!input->output)
-		return ;
-	ft_strlower(input->output);
-	print_addr(input);
+	int i;
+	i = input->flags.width - 1;
+	while (i > 0)
+	{
+		input->ret += ((input->flags.zero == 1) ?
+			write(1, "0", 1) : write(1, " ", 1));
+		i--;
+	}
 }
 
-void	get_chars(char type, t_pfinfo *input)
+void	print_char(t_pfinfo *input, char ch)
 {
-	char	ch;
-	
-	if (type == 's')
+	if (input->flags.minus)
 	{
-		input->output = (char*)va_arg(input->ap, const char*);
-		print_str(input);
+		input->ret += write(1, &ch, 1);
+		print_zerowidth_char(input);
 	}
 	else
 	{
-		ch = (char)va_arg(input->ap, int);
-		print_char(input, ch);
+		print_zerowidth_char(input);
+		input->ret += write(1, &ch, 1);
 	}
+	input->i++;
 }
+

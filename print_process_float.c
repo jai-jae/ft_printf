@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 20:03:03 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/20 12:11:40 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/20 18:12:13 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,5 @@ void	print_float(t_fprec *nbr, t_pfinfo *input)
 		input->flags.prec > 0 ? print_precision(nbr, input) : 0;
 	}
 	input->i++;
+	free(input->output);
 }

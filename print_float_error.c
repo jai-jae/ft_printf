@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 04:20:03 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/20 12:00:39 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/20 18:13:14 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ void			print_float_error(t_fprec *nbr, t_pfinfo *input)
 			input->ret += write(1, input->output, ft_strlen(input->output));
 		}
 		input->i++;
+		free(input->output);
 	}
 }

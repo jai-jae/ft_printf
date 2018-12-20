@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 11:23:02 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/20 15:11:30 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/20 18:11:24 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,5 @@ void	print_base(char type, t_pfinfo *input)
 		input->ret += write(1, input->output, ft_strlen(input->output));
 	}
 	input->i++;
+	free(input->output);
 }

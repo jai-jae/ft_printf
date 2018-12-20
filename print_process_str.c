@@ -1,73 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_process_ptr.c                                :+:      :+:    :+:   */
+/*   print_proess_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/20 14:21:20 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/20 18:25:34 by jaelee           ###   ########.fr       */
+/*   Created: 2018/12/20 16:52:54 by jaelee            #+#    #+#             */
+/*   Updated: 2018/12/20 18:30:08 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
 
-void		print_width_addr(t_pfinfo *input)
+void	print_zerowidth_str(t_pfinfo *input)
 {
-	int len;
-	int i;
+	int	len;
+	int	i;
 
-	len = ft_strlen(input->output) + 2;
+	len = ft_strlen(input->output);
 	i = input->flags.width - len;
 	while (i > 0)
 	{
-		input->ret += write(1, " ", 1);
+		input->ret += ((input->flags.zero) == 1 ?
+			write(1, "0", 1) : write(1, " ", 1));
 		i--;
 	}
 }
 
-int			addr_precision(t_pfinfo *input)
+void	print_str(t_pfinfo *input)
 {
 	char	*tmp;
-	char	*new;
-	int		len;
-	int		i;
 
-	len = ft_strlen(input->output);
-	if (input->flags.prec > len)
-	{
-		i = input->flags.prec - len;
-		if (!(tmp = ft_strnew(i)))
-			return (0);
-		while (i > 0)
-			tmp[--i] = '0';
-		if (!(new = ft_strjoin(tmp, input->output)))
-			return (0);
-		free(tmp);
-		free(input->output);
-		input->output = new;
-	}
-	return (1);
-}
-
-void		print_addr(t_pfinfo *input)
-{
 	input->flags.space = 0;
 	input->flags.plus = 0;
-	addr_precision(input);
-	if (!(addr_precision(input)))
+	input->flags.hash = 0;
+	if (input->flags.prec >= 0 && input->flags.prec <= ft_strlen(input->output))
+	{
+		tmp = ft_strsub(input->output, 0, input->flags.prec);
+		free(input->output);
+		input->output = tmp;
+	}
+	if (!(input->output))
 		return ;
 	if (input->flags.minus == 1)
 	{
-		print_hash_base('x', input);
 		input->ret += write(1, input->output, ft_strlen(input->output));
-		print_width_addr(input);
+		print_zerowidth_str(input);
 	}
 	else
 	{
-		print_width_addr(input);
-		print_hash_base('x', input);
+		print_zerowidth_str(input);
 		input->ret += write(1, input->output, ft_strlen(input->output));
 	}
 	input->i++;

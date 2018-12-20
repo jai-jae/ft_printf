@@ -6,12 +6,12 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 18:40:58 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/20 15:47:09 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/20 18:30:16 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
+#include "libft.h"
 
 static void		get_input(const char *fmt, t_pfinfo *input)
 {
@@ -56,8 +56,8 @@ int main()
 	c = 123.123123;
 	bc = &c;
 	b = -123.123L;
-	printf("%*.*Lf\n", 1, 1,  b);
-	ft_printf("%s", "abcd");
+	printf("%s", "\0");
+//	ft_printf("%s", "abcd");
 //	printf("%d\n");
 	return (0);
 }	
