@@ -58,7 +58,6 @@ SRC =	./ft_atoi.c \
 		./ft_strtrim.c \
 		./ft_tolower.c \
 		./ft_toupper.c \
-		./ft_realloc.c \
 		./ft_swapaddr.c \
 		./ft_pow.c \
 		./ft_factorial.c \
@@ -67,6 +66,7 @@ SRC =	./ft_atoi.c \
 		./ft_strndup.c \
 		./ft_min.c \
 		./ft_max.c \
+		./ft_abs.c \
 		./ft_itoa.c \
 		./ft_itoa_base.c \
 		./ft_uitoa.c \

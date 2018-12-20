@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   double_dabble.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/16 13:04:06 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/16 17:22:08 by jaelee           ###   ########.fr       */
+/*   Created: 2018/12/19 19:48:42 by jaelee            #+#    #+#             */
+/*   Updated: 2018/12/20 10:59:50 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bigint.h"
-#include <stdio.h>
+#include "ft_printf.h"
+#include "fpoint.h"
 
-static int		first_index_bigint(t_fprec *nbr)
+static int			first_index_bigint(t_fprec *nbr)
 {
 	int	i;
 
@@ -27,7 +28,7 @@ static int		first_index_bigint(t_fprec *nbr)
 	return (0);
 }
 
-static int		size_checker(t_fprec *nbr, int src_size)
+static int			size_checker(t_fprec *nbr, int src_size)
 {
 	int			ret;
 	uint32_t	val;
@@ -42,24 +43,21 @@ static int		size_checker(t_fprec *nbr, int src_size)
 	return (ret);
 }
 
-static void		shift_bcd(unsigned char *bcd, int index_bcd)
+static void			shift_bcd(unsigned char *bcd, int index_bcd)
 {
 	int	i;
 
 	i = index_bcd;
 	bcd[i] = bcd[i] << 1;
-	i++;
-	while (i <= BCD_SIZE)
+	while (i < BCD_SIZE - 1)
 	{
-		bcd[i - 1] |= bcd[i] >> 7;
-		bcd[i] = bcd[i] << 1;
+		bcd[i] |= bcd[i + 1] >> 7;
+		bcd[i + 1] = bcd[i + 1] << 1;
 		i++;
-		if (i == BCD_SIZE)
-			break ;
 	}
 }
 
-static void		check_carry(unsigned char *bcd, int *shift_pos, int b_size)
+static void			check_carry(unsigned char *bcd, int *shift_pos, int b_size)
 {
 	int tmp_pos;
 
@@ -75,16 +73,15 @@ static void		check_carry(unsigned char *bcd, int *shift_pos, int b_size)
 	}
 }
 
-void			double_dabble(t_fprec *nbr)
+unsigned char		*double_dabble(t_fprec *nbr, unsigned char *bcd)
 {
 	int					src_size;
-	unsigned char		bcd[BCD_SIZE];
 	uint32_t			cmp;
 	int					b_size;
 	int					shift_pos;
 
 	shift_pos = BCD_SIZE - 1;
-	ft_memset(bcd, 0, BCD_SIZE);
+	ft_memset(bcd, 0, BCD_SIZE + 1);
 	src_size = first_index_bigint(nbr);
 	b_size = size_checker(nbr, src_size);
 	cmp = (0x80000000 >> (32 - b_size));
@@ -97,13 +94,10 @@ void			double_dabble(t_fprec *nbr)
 			bcd[BCD_SIZE - 1] += (!!(cmp & nbr->bg.data[src_size]));
 			check_carry(bcd, &shift_pos, b_size);
 			cmp = cmp >> 1;
-			if (b_size > 0)
-				shift_bcd(bcd, shift_pos);
+			b_size > 0 ? shift_bcd(bcd, shift_pos) : 0;
 		}
 		cmp = 0x80000000;
 		src_size--;
 	}
-	printf("shift_pos = %d\n", shift_pos);
-	while (shift_pos < BCD_SIZE)
-		printf("%c", bcd[shift_pos++] + '0');
+	return (process_output(nbr, &bcd[shift_pos], BCD_SIZE - shift_pos));
 }

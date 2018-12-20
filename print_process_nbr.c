@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 11:23:02 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/08 17:13:29 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/20 10:58:11 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,16 @@ void	process_precision_nbr(t_pfinfo *input)
 	int		len;
 
 	check_sign_nbr(input);
+	if (!(input->output))
+		return ;
 	len = (int)ft_strlen(input->output);
 	if (input->flags.prec == 0 && input->output[0] == '0')
 		input->output[0] = '\0';
 	else if (input->flags.prec > len)
 	{
 		i = input->flags.prec - len;
-		zeros = ft_strnew(i);
+		if (!(zeros = ft_strnew(i)))
+			return ;
 		while (i > 0)
 			zeros[--i] = '0';
 		tmp = ft_strjoin(zeros, input->output);
@@ -86,6 +89,8 @@ void	print_zerowidth_nbr(t_pfinfo *input)
 void	print_nbr(t_pfinfo *input)
 {
 	process_precision_nbr(input);
+	if (!(input->output))
+		return ;
 	if (input->flags.minus == 1)
 	{
 		print_sign_nbr(input);

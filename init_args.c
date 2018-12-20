@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 14:10:07 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/05 23:44:53 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/20 13:00:32 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,4 @@ void	init_uint_arg(t_pfinfo *input, unsigned long int *val)
 		*val = (unsigned long int)va_arg(input->ap, unsigned long int);
 	else if (input->mod == mod_ll)
 		*val = (unsigned long int)va_arg(input->ap, unsigned long int);
-}
-
-void	init_float_arg(t_pfinfo *input, long double *val)
-{
-	if (input->mod == mod_non)
-		*val = (long double)va_arg(input->ap, double);
-	else if (input->mod == mod_l)
-		*val = (long double)va_arg(input->ap, double);
-	else if (input->mod == mod_L)
-		*val = (long double)va_arg(input->ap, long double);
 }

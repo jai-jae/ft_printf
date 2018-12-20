@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 16:30:34 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/15 19:55:54 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/19 19:35:45 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_shiftr_bigint(t_bigint *dst, uint32_t val)
 	uint32_t	len;
 
 	len = dst->len;
-	val = val % 32;
 	i = 1;
 	dst->data[0] = dst->data[0] >> val;
 	while (i < dst->len)
@@ -33,7 +32,6 @@ void	ft_shiftl_bigint(t_bigint *dst, uint32_t val)
 {
 	int	i;
 
-	val = val % 32;
 	i = dst->len - 1;
 	dst->data[i] = dst->data[i] << val;
 	i--;

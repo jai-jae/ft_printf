@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 11:23:02 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/08 17:12:33 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/20 15:11:30 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 void	print_hash_base(char type, t_pfinfo *input)
 {
-	char	*tmp;
-	char	*hash;
-
 	if (type == 'o')
 		input->ret += write(1, "0", 1);
 	else if (type == 'x' || type == 'X')
 		input->ret += write(1, type == 'x' ? "0x" : "0X", 2);
+	else
+		input->ret += write(1, "0x", 2);
 }
 
-void	process_precision_base(char type, t_pfinfo *input)
+void	process_precision_base(t_pfinfo *input)
 {
 	char	*zeros;
 	char	*tmp;
@@ -36,7 +35,8 @@ void	process_precision_base(char type, t_pfinfo *input)
 	else if (input->flags.prec > len)
 	{
 		i = input->flags.prec - len;
-		zeros = ft_strnew(i);
+		if (!(zeros = ft_strnew(i)))
+			return ;
 		while (i > 0)
 			zeros[--i] = '0';
 		tmp = ft_strjoin(zeros, input->output);
@@ -73,7 +73,7 @@ void	print_zerowidth_base(char type, t_pfinfo *input)
 
 void	print_base(char type, t_pfinfo *input)
 {
-	process_precision_base(type, input);
+	process_precision_base(input);
 	if (input->flags.minus == 1)
 	{
 		input->flags.hash == 1 ? print_hash_base(type, input) : 0;

@@ -6,11 +6,10 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 18:40:58 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/07 18:25:59 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/20 15:47:09 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
 #include "ft_printf.h"
 #include <stdio.h>
 
@@ -26,6 +25,8 @@ int				ft_printf(const char *fmt, ...)
 	t_pfinfo	input;
 
 	ft_bzero(&input, sizeof(input));
+	if (!fmt || !(*fmt))
+		return (-1);
 	va_start(input.ap, fmt);
 	while (fmt[input.i])
 	{
@@ -48,30 +49,15 @@ int				ft_printf(const char *fmt, ...)
 
 int main()
 {
-	int a;
-	int             bits[64];
-	int             i;
-	int             tmp;
-	unsigned long int    utemp;
-	double f = 10;
-	i = 63;
-	utemp = *(unsigned long int *)&f;
-	while (i >= 0)
-	{
-		bits[i] = utemp & 1;
-		utemp = utemp >> 1;
-		i--;
-	}
-/*	while (++i < 64)
-	{
-		printf("%d", bits[i]);
-		if (i == 0)
-			printf (" ");
-		else if (i == 11)
-			printf (" ");
-	}*/
-	long double l = 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000001;
-//	ft_printf("%ld\n", UINT_MAX);
-	printf("%.10000000000Lf %.1000000000000Lf %.1000000000Lf %.1000000000Lf %.100000000000000Lf %.100000Lf\n", l, l, l, l, l, l);
+	long double b;
+	double c;
+	double *bc;
+	char *str = "abcd";
+	c = 123.123123;
+	bc = &c;
+	b = -123.123L;
+	printf("%*.*Lf\n", 1, 1,  b);
+	ft_printf("%s", "abcd");
+//	printf("%d\n");
 	return (0);
 }	

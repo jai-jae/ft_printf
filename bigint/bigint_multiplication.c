@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/07 22:59:24 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/14 13:28:15 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/20 11:58:01 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	ft_mul_small(t_bigint *dst, uint32_t val)
 	ft_memcpy(tmp, dst->data, sizeof(uint32_t) * dst->len);
 	ft_memset(dst->data, 0, sizeof(uint32_t) * dst->len);
 	i = 0;
-	while (i < dst->len)
+	while (i < (int)dst->len)
 	{
 		nbr = (uint64_t)tmp[i] * val;
-		ft_add_small_pos(dst, (uint32_t)nbr, i);  //first half bits
-		ft_add_small_pos(dst, (uint32_t)(nbr >> 32), i + 1); //second half bits;
+		ft_add_small_pos(dst, (uint32_t)nbr, i);
+		ft_add_small_pos(dst, (uint32_t)(nbr >> 32), i + 1);
 		i++;
 	}
 	free(tmp);
