@@ -39,4 +39,3 @@ void	print_char(t_pfinfo *input, char ch)
 	}
 	input->i++;
 }
-

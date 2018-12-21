@@ -57,7 +57,7 @@ int main()
 	bc = &c;
 	b = -123.123L;
 	printf("%s", "\0");
-//	ft_printf("%s", "abcd");
-//	printf("%d\n");
+	ft_printf("%s", "abcd");
+	printf("%d\n");
 	return (0);
 }	

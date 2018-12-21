@@ -16,17 +16,31 @@ SRC = ./ft_printf.c \
 	  ./get_flags.c \
 	  ./print_process_nbr.c \
 	  ./print_process_base.c \
+	  ./print_process_ptr.c \
+	  ./print_process_char.c \
+	  ./print_process_str.c \
+	  ./print_process_float.c \
+	  ./print_float_util.c \
+	  ./print_float_error.c \
 	  ./process_conv.c \
+	  ./process_conv2.c \
 	  ./base_conversion.c \
 	  ./ltoa_duo.c \
 	  ./lltoa_duo.c \
 	  ./ultoa_duo.c \
 	  ./ulltoa_duo.c \
-	  ./init_args.c
+	  ./init_args.c \
+	  ./bigint/bigint.c \
+	  ./bigint/bigint_addition.c \
+	  ./bigint/bigint_multiplication.c \
+	  ./bigint/bigint_shift.c \
+	  ./bigint/double_dabble.c \
+	  ./bigint/float_error.c \
+	  ./bigint/process_output.c \
+	  ./bigint/ft_ftoa.c
 
 OBJ = $(SRC:.c=.o)
-
-HEADER = -I ./ -I libft/
+HEADER = -Iincludes -Ilibft/
 
 all : $(NAME)
 

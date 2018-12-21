@@ -66,8 +66,8 @@ void		print_addr(t_pfinfo *input)
 	}
 	else
 	{
-		print_width_addr(input);
 		print_hash_base('x', input);
+		print_width_addr(input);
 		input->ret += write(1, input->output, ft_strlen(input->output));
 	}
 	input->i++;

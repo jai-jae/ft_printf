@@ -18,6 +18,7 @@ void	get_addr(t_pfinfo *input)
 {
 	unsigned long int val;
 
+	input->flags.minus == 1 ? input->flags.zero = 0 : 0;
 	val = va_arg(input->ap, unsigned long int);
 	input->output = ultoa_base(val, 16);
 	if (!input->output)
@@ -29,13 +30,19 @@ void	get_addr(t_pfinfo *input)
 void	get_chars(char type, t_pfinfo *input)
 {
 	char	ch;
+	char	*str;
 	
+	input->flags.minus == 1 ? input->flags.zero = 0 : 0;
 	if (type == 's')
 	{
-		input->output = (char*)va_arg(input->ap, const char*);
+		str = (char*)va_arg(input->ap, char*);
+		if (str == NULL)
+			return (print_null_str(input));
+		if (!(input->output = ft_strdup(str)))
+			return ;
 		print_str(input);
 	}
-	else
+	else if (type == 'c')
 	{
 		ch = (char)va_arg(input->ap, int);
 		print_char(input, ch);

@@ -27,6 +27,22 @@ void	print_zerowidth_str(t_pfinfo *input)
 		i--;
 	}
 }
+void	print_null_str(t_pfinfo *input)
+{
+	int	len;
+	int i;
+
+	len = input->flags.prec < 0 ? 6 : input->flags.prec;
+	i = input->flags.width - len;
+	while (i > 0)
+	{
+		input->ret += ((intput->flags.zero) == 1 ?
+			write(1, "0", 1) : write(1, " ", 1));
+		i--;
+	}
+	input->ret += write(1, "(null)", len);
+	input->i++;
+}
 
 void	print_str(t_pfinfo *input)
 {
