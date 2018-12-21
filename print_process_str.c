@@ -36,7 +36,7 @@ void	print_null_str(t_pfinfo *input)
 	i = input->flags.width - len;
 	while (i > 0)
 	{
-		input->ret += ((intput->flags.zero) == 1 ?
+		input->ret += ((input->flags.zero) == 1 ?
 			write(1, "0", 1) : write(1, " ", 1));
 		i--;
 	}
