@@ -130,4 +130,7 @@ void			init_int_arg(t_pfinfo *input, long int *val);
 void			init_uint_arg(t_pfinfo *input, unsigned long int *val);
 void			init_float_arg(t_pfinfo *input, long double *val);
 
+void			print_null_str(t_pfinfo *input);
+void			print_str(t_pfinfo *input);
+void			print_char(t_pfinfo *input, char ch);
 #endif
