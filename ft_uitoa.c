@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_uitoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/12 14:55:33 by jaelee            #+#    #+#             */
-/*   Updated: 2018/11/12 14:57:05 by jaelee           ###   ########.fr       */
+/*   Created: 2018/12/05 16:21:16 by jaelee            #+#    #+#             */
+/*   Updated: 2018/12/22 01:35:16 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
+char	*ft_uitoa(unsigned int n)
 {
-	if (lst)
+	char			*val;
+	int				len;
+	unsigned int	tmp;
+
+	len = 1;
+	tmp = n;
+	while (tmp >= 10)
 	{
-		while (lst != (NULL))
-		{
-			f(lst);
-			lst = lst->next;
-		}
+		tmp /= 10;
+		len++;
 	}
-	return ;
+	if (!(val = ft_strnew(len)))
+		return (NULL);
+	val[len] = '\0';
+	tmp = n;
+	while (tmp >= 10)
+	{
+		val[--len] = (tmp % 10) + '0';
+		tmp /= 10;
+	}
+	val[--len] = (tmp % 10) + '0';
+	return (val);
 }

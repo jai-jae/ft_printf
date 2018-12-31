@@ -6,11 +6,11 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 20:03:56 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/08 17:18:03 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/22 08:07:14 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
+#include "libft.h"
 #include "ft_printf.h"
 
 char		*ltoa(long int n)
@@ -21,7 +21,7 @@ char		*ltoa(long int n)
 
 	len = n < 0 ? 2 : 1;
 	tmp = n < 0 ? -n : n;
-	while (tmp > 10)
+	while (tmp >= 10)
 	{
 		tmp /= 10;
 		len++;
@@ -48,7 +48,7 @@ char		*ltoa_base(long int n, long int base)
 
 	len = n < 0 ? 2 : 1;
 	tmp = n < 0 ? -n : n;
-	while (tmp > base)
+	while (tmp >= base)
 	{
 		tmp /= base;
 		len++;

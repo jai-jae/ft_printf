@@ -6,25 +6,24 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 04:20:03 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/20 18:13:14 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/22 04:13:49 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "fpoint.h"
+#include "libft.h"
 
-static void		err_message(t_fprec *nbr, t_pfinfo *input)
+static void		err_message(char type, t_fprec *nbr, t_pfinfo *input)
 {
 	if (nbr->err == nan)
 		input->output = ft_strdup("nan");
-	else if (nbr->err == NAN)
-		input->output = ft_strdup("NAN");
 	else if (nbr->err == inf)
 		input->output = ft_strdup("inf");
-	else if (nbr->err == INF)
-		input->output = ft_strdup("INF");
 	else if (nbr->err == zero)
 		input->output = ft_strdup("0.0");
+	if (type == 'F')
+		ft_strupper(input->output);
 }
 
 static void		print_width_float_error(t_pfinfo *input)
@@ -45,9 +44,9 @@ static void		print_width_float_error(t_pfinfo *input)
 	}
 }
 
-void			print_float_error(t_fprec *nbr, t_pfinfo *input)
+void			print_float_error(char type, t_fprec *nbr, t_pfinfo *input)
 {
-	err_message(nbr, input);
+	err_message(type, nbr, input);
 	if (!(input->output))
 		return ;
 	if (nbr->err == zero)

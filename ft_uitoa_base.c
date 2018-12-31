@@ -1,34 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   uitoa_duo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 11:53:15 by jaelee            #+#    #+#             */
-/*   Updated: 2018/11/11 12:18:36 by jaelee           ###   ########.fr       */
+/*   Created: 2018/12/01 22:52:27 by jaelee            #+#    #+#             */
+/*   Updated: 2018/12/22 00:26:10 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_putnbr(int n)
+char	*ft_uitoa_base(unsigned int n, unsigned int base)
 {
+	char			*val;
+	int				len;
 	unsigned int	tmp;
 
-	tmp = 0;
-	if (n >= 0)
-		tmp = n;
-	else if (n < 0)
+	len = 1;
+	tmp = n;
+	while (tmp >= base)
 	{
-		ft_putchar('-');
-		tmp = (unsigned int)(n * (-1));
+		tmp /= base;
+		len++;
 	}
-	if (tmp > 9)
+	if (!(val = ft_strnew(len)))
+		return (NULL);
+	val[len] = '\0';
+	tmp = n;
+	while (tmp >= base)
 	{
-		ft_putnbr(tmp / 10);
-		ft_putchar((tmp % 10) + '0');
+		val[--len] = (tmp % base) > 9 ?
+			(tmp % base) + 55 : (tmp % base) + '0';
+		tmp /= base;
 	}
-	else
-		ft_putchar(tmp + '0');
+	val[--len] = (tmp % base) > 9 ?
+		(tmp % base) + 55 : (tmp % base) + '0';
+	return (val);
 }

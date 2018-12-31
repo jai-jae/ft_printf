@@ -6,11 +6,11 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 22:58:11 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/05 16:25:57 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/22 08:07:51 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
+#include "libft.h"
 #include "ft_printf.h"
 
 char	*ultoa(unsigned long int n)
@@ -21,7 +21,7 @@ char	*ultoa(unsigned long int n)
 
 	len = 1;
 	tmp = n;
-	while (tmp > 10)
+	while (tmp >= 10)
 	{
 		tmp /= 10;
 		len++;
@@ -47,7 +47,7 @@ char	*ultoa_base(unsigned long int n, unsigned long int base)
 
 	len = 1;
 	tmp = n;
-	while (tmp > base)
+	while (tmp >= base)
 	{
 		tmp /= base;
 		len++;

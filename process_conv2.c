@@ -6,13 +6,12 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 12:24:31 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/20 18:30:07 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/28 15:45:40 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
-#include <stdio.h>
 
 void	get_addr(t_pfinfo *input)
 {
@@ -20,7 +19,10 @@ void	get_addr(t_pfinfo *input)
 
 	input->flags.minus == 1 ? input->flags.zero = 0 : 0;
 	val = va_arg(input->ap, unsigned long int);
-	input->output = ultoa_base(val, 16);
+	if (input->flags.prec == 0)
+		input->output = ft_strdup("\0");
+	else
+		input->output = ultoa_base(val, 16);
 	if (!input->output)
 		return ;
 	ft_strlower(input->output);
@@ -29,9 +31,9 @@ void	get_addr(t_pfinfo *input)
 
 void	get_chars(char type, t_pfinfo *input)
 {
-	char	ch;
-	char	*str;
-	
+	unsigned char	ch;
+	char			*str;
+
 	input->flags.minus == 1 ? input->flags.zero = 0 : 0;
 	if (type == 's')
 	{
@@ -44,7 +46,25 @@ void	get_chars(char type, t_pfinfo *input)
 	}
 	else if (type == 'c')
 	{
-		ch = (char)va_arg(input->ap, int);
+		ch = (unsigned char)va_arg(input->ap, int);
 		print_char(input, ch);
 	}
+}
+
+void	get_percent(t_pfinfo *input)
+{
+	if (input->flags.minus == 1)
+	{
+		input->ret += write(1, "%", 1);
+		while (input->flags.width-- > 1)
+			input->ret += write(1, " ", 1);
+	}
+	else
+	{
+		while (input->flags.width-- > 1)
+			input->ret += (input->flags.zero ?
+					write(1, "0", 1) : write(1, " ", 1));
+		input->ret += write(1, "%", 1);
+	}
+	input->i++;
 }

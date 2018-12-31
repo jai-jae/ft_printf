@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 11:23:02 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/20 18:11:24 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/28 17:43:42 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 void	print_hash_base(char type, t_pfinfo *input)
 {
-	if (type == 'o')
+	if (type == 'o' && input->output[0] != '0')
 		input->ret += write(1, "0", 1);
 	else if (type == 'x' || type == 'X')
 		input->ret += write(1, type == 'x' ? "0x" : "0X", 2);
-	else
-		input->ret += write(1, "0x", 2);
 }
 
 void	process_precision_base(t_pfinfo *input)
@@ -73,6 +71,9 @@ void	print_zerowidth_base(char type, t_pfinfo *input)
 
 void	print_base(char type, t_pfinfo *input)
 {
+	if (type != 'o')
+		if (input->output[0] == '0' || input->output[0] == '\0')
+			input->flags.hash = 0;
 	process_precision_base(input);
 	if (input->flags.minus == 1)
 	{

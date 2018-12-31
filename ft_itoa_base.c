@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   uitoa_duo.c                                        :+:      :+:    :+:   */
+/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/01 22:52:27 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/05 16:31:41 by jaelee           ###   ########.fr       */
+/*   Created: 2018/12/05 16:21:36 by jaelee            #+#    #+#             */
+/*   Updated: 2018/12/22 00:26:25 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_uitoa_base(unsigned int n, unsigned int base)
+char	*ft_itoa_base(int n, long int base)
 {
-	char			*val;
-	int				len;
-	unsigned int	tmp;
+	char		*val;
+	int			len;
+	long int	tmp;
 
-	len = 1;
-	tmp = n;
-	while (tmp > base)
+	len = n < 0 ? 2 : 1;
+	tmp = n < 0 ? -(long int)n : n;
+	while (tmp >= base)
 	{
 		tmp /= base;
 		len++;
@@ -28,7 +28,8 @@ char	*ft_uitoa_base(unsigned int n, unsigned int base)
 	if (!(val = ft_strnew(len)))
 		return (NULL);
 	val[len] = '\0';
-	tmp = n;
+	val[0] = n < 0 ? '-' : 0;
+	tmp = n < 0 ? -(long int)n : n;
 	while (tmp >= base)
 	{
 		val[--len] = (tmp % base) > 9 ?

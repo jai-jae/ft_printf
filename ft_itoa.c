@@ -1,25 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strequ.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 13:58:12 by jaelee            #+#    #+#             */
-/*   Updated: 2018/11/11 13:57:11 by jaelee           ###   ########.fr       */
+/*   Created: 2018/12/05 16:19:21 by jaelee            #+#    #+#             */
+/*   Updated: 2018/12/22 08:04:28 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strequ(char const *s1, char const *s2)
+char	*ft_itoa(int n)
 {
-	if (s1 && s2)
+	char		*val;
+	int			len;
+	long int	tmp;
+
+	len = n < 0 ? 2 : 1;
+	tmp = n < 0 ? -(long int)n : n;
+	while (tmp >= 10)
 	{
-		if (ft_strcmp(s1, s2) == 0)
-			return (1);
-		else
-			return (0);
+		tmp /= 10;
+		len++;
 	}
-	return (-1);
+	if (!(val = ft_strnew(len)))
+		return (NULL);
+	val[len] = '\0';
+	val[0] = n < 0 ? '-' : 0;
+	tmp = n < 0 ? -(long int)n : n;
+	while (tmp >= 10)
+	{
+		val[--len] = (tmp % 10) + '0';
+		tmp /= 10;
+	}
+	val[--len] = (tmp % 10) + '0';
+	return (val);
 }

@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 14:21:20 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/20 18:25:34 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/22 08:19:39 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void		print_width_addr(t_pfinfo *input)
 	i = input->flags.width - len;
 	while (i > 0)
 	{
-		input->ret += write(1, " ", 1);
+		input->ret += (input->flags.zero == 1 ?
+				write(1, "0", 1) : write(1, " ", 1));
 		i--;
 	}
 }
@@ -66,8 +67,9 @@ void		print_addr(t_pfinfo *input)
 	}
 	else
 	{
+		input->flags.zero == 0 ? print_width_addr(input) : 0;
 		print_hash_base('x', input);
-		print_width_addr(input);
+		input->flags.zero == 1 ? print_width_addr(input) : 0;
 		input->ret += write(1, input->output, ft_strlen(input->output));
 	}
 	input->i++;

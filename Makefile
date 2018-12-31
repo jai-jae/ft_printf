@@ -5,12 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jaelee <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/12/05 16:34:17 by jaelee            #+#    #+#              #
-#    Updated: 2018/12/20 06:54:48 by jaelee           ###   ########.fr        #
+#    Created: 2018/12/22 07:12:15 by jaelee            #+#    #+#              #
+#    Updated: 2018/12/22 07:55:14 by jaelee           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = main
+NAME = libftprintf.a
 
 SRC = ./ft_printf.c \
 	  ./get_flags.c \
@@ -30,35 +30,51 @@ SRC = ./ft_printf.c \
 	  ./ultoa_duo.c \
 	  ./ulltoa_duo.c \
 	  ./init_args.c \
-	  ./bigint/bigint.c \
-	  ./bigint/bigint_addition.c \
-	  ./bigint/bigint_multiplication.c \
-	  ./bigint/bigint_shift.c \
-	  ./bigint/double_dabble.c \
-	  ./bigint/float_error.c \
-	  ./bigint/process_output.c \
-	  ./bigint/ft_ftoa.c
+	  ./bigint.c \
+	  ./bigint_addition.c \
+	  ./bigint_multiplication.c \
+	  ./bigint_shift.c \
+	  ./double_dabble.c \
+	  ./float_error.c \
+	  ./process_output.c \
+	  ./ft_ftoa.c \
+	  ./ft_memcpy.c \
+	  ./ft_memalloc.c \
+	  ./ft_strlen.c \
+	  ./ft_strsub.c \
+	  ./ft_strdup.c \
+	  ./ft_strjoin.c \
+	  ./ft_strnew.c \
+	  ./ft_bzero.c \
+	  ./ft_memset.c \
+	  ./ft_atoi.c \
+	  ./ft_itoa.c \
+	  ./ft_uitoa.c \
+	  ./ft_itoa_base.c \
+	  ./ft_uitoa_base.c \
+	  ./ft_strlower.c \
+	  ./ft_strupper.c \
+	  ./ft_strchr.c
 
 OBJ = $(SRC:.c=.o)
-HEADER = -Iincludes -Ilibft/
+
+FLAGS = -Wall -Wextra -Werror
+
+HEADER = -Iincludes
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) libft/libft.a
-	gcc -Llibft -lft $^ -o $@
+$(NAME) : $(OBJ)
+	ar rc $@ $^
+	ranlib $@
 
 %.o : %.c
-	gcc $(HEADER) -c $^ -o $@
-
-libft/libft.a :
-	make -C libft
+	gcc $(FLAGS) $(HEADER) -c $^ -o $@
 
 clean :
-	make -C libft clean
 	rm -f $(OBJ)
 
 fclean : clean
-	make -C libft libclean
 	rm -f $(NAME)
 
 re: fclean

@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 23:08:10 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/20 11:49:06 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/22 03:33:53 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int		handle_error80(t_fprec *nbr)
 		return (0);
 	else if ((nbr->exp == MAX_80 && nbr->len_sosu == 0))
 	{
-		nbr->err = INF;
+		nbr->err = inf;
 		return (1);
 	}
 	else if (nbr->exp == MAX_80 && nbr->len_sosu != 0)
 	{
-		nbr->err = NAN;
+		nbr->err = nan;
 		return (1);
 	}
 	return (-1);

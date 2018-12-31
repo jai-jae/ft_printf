@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memccpy.c                                       :+:      :+:    :+:   */
+/*   ft_strupper.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/07 13:10:17 by jaelee            #+#    #+#             */
-/*   Updated: 2018/11/24 18:28:10 by jaelee           ###   ########.fr       */
+/*   Created: 2018/12/22 03:43:48 by jaelee            #+#    #+#             */
+/*   Updated: 2018/12/22 07:58:59 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+void	ft_strupper(char *str)
 {
-	size_t			i;
-	unsigned char	*tmp1;
-	unsigned char	*tmp2;
+	int	i;
 
-	tmp1 = (unsigned char *)dst;
-	tmp2 = (unsigned char *)src;
 	i = 0;
-	while (i < n)
+	while (str[i] != '\0')
 	{
-		tmp1[i] = tmp2[i];
-		if (tmp2[i] == (unsigned char)c)
-			return (tmp1 + i + 1);
+		if (str[i] >= 'a' && str[i] <= 'z')
+			str[i] -= 32;
 		i++;
 	}
-	return (NULL);
 }

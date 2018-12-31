@@ -6,7 +6,7 @@
 /*   By: jaelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 16:52:54 by jaelee            #+#    #+#             */
-/*   Updated: 2018/12/20 18:30:08 by jaelee           ###   ########.fr       */
+/*   Updated: 2018/12/22 08:21:15 by jaelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	print_zerowidth_str(t_pfinfo *input)
 		i--;
 	}
 }
+
 void	print_null_str(t_pfinfo *input)
 {
 	int	len;
@@ -48,10 +49,8 @@ void	print_str(t_pfinfo *input)
 {
 	char	*tmp;
 
-	input->flags.space = 0;
-	input->flags.plus = 0;
-	input->flags.hash = 0;
-	if (input->flags.prec >= 0 && input->flags.prec <= ft_strlen(input->output))
+	if (input->flags.prec >= 0 &&
+			input->flags.prec <= (int)ft_strlen(input->output))
 	{
 		tmp = ft_strsub(input->output, 0, input->flags.prec);
 		free(input->output);
